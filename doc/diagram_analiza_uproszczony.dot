@@ -1,0 +1,92 @@
+digraph AnalizaUproszczona {
+    graph [
+        fontname="Arial",
+        rankdir=TB,
+        bgcolor="white",
+        pad=0.85,
+        nodesep=0.65,
+        ranksep=1.15
+    ];
+
+    node [
+        shape=box,
+        style="rounded,filled",
+        fontname="Arial",
+        fontsize=13,
+        color="#334155",
+        fillcolor="#f8fafc",
+        fontcolor="#0f172a",
+        margin="0.18,0.12"
+    ];
+
+    edge [
+        fontname="Arial",
+        fontsize=11,
+        color="#475569",
+        fontcolor="#334155",
+        arrowsize=0.8
+    ];
+
+    title [
+        label="Analiza tekstu i wykrywanie możliwych zapożyczeń",
+        shape=plain,
+        fontsize=22,
+        fontname="Arial",
+        fontcolor="#000000"
+    ];
+
+    input [
+        label="1. Wprowadzanie tekstu do analizy\n - wklejenie tekstu ze schowka albo wskazanie pliku\nDOCX, PDF lub TXT",
+        fillcolor="#e0f2fe"
+    ];
+
+    split [
+        label="2. Aplikacja dzieli tekst\nna krótkie zachodzące na siebie fragmenty\n(okna tekstowe np. po 50 słów)",
+        fillcolor="#f8fafc"
+    ];
+
+    search [
+        label="3. Dla każdego fragmentu\naplikacja szuka podobnych miejsc\nw korpusie porównawczym\nprzeszukując bazę wektorową ChromaDB\nzwraca najbardziej podobne fragmenty referencyjne",
+        fillcolor="#ede9fe"
+    ];
+
+    llm [
+        label="4. Model językowy ocenia kandydatów,\nczy podobieństwo jest zapożyczeniem,\na nie tylko wspólnym cytatem\nlub ogólnym tematem",
+        fillcolor="#fef3c7"
+    ];
+
+    classify [
+        label="5. Jeśli model uzna zależność,\nokreśla jej typ:\ncytat, częściowy cytat,\nparafraza albo aluzja",
+        fillcolor="#ffedd5"
+    ];
+
+    save [
+        label="6. Wyniki są zapisywane\nrazem z uzasadnieniem modelu,\nfragmentem badanego tekstu\ni fragmentami źródłowymi",
+        fillcolor="#dcfce7"
+    ];
+
+    view [
+        label="7. Po analizie rozpoznane jako zapożyczenia fragmenty\nsą oznaczone kolorami w tekście,\naplikacja wyświetla też szczegóły zapożyczeń,\nlog analizy i koszt",
+        fillcolor="#e0f2fe"
+    ];
+
+    export [
+        label="8. Wynik można wyeksportować\ndo pliku DOCX:\nw 2 wariantach: tekst z komentarzami\nalbo lista zapożyczeń",
+        fillcolor="#f1f5f9"
+    ];
+
+    none [
+        label="Jeśli podobieństwo wynika tylko\nze wspólnego źródła, np. Biblii,\naplikacja nie zapisuje zapożyczenia,\nale zachowuje uzasadnienie w logu",
+        fillcolor="#e2e8f0"
+    ];
+
+    title -> input [style=invis, minlen=1];
+    input -> split;
+    split -> search;
+    search -> llm;
+    llm -> classify [label="zapożyczenie"];
+    llm -> none [label="brak zapożyczenia"];
+    classify -> save;
+    save -> view;
+    view -> export;
+}

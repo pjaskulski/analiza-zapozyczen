@@ -1,0 +1,74 @@
+digraph KorpusUproszczony {
+    graph [
+        fontname="Arial",
+        rankdir=TB,
+        bgcolor="white",
+        pad=0.85,
+        nodesep=0.65,
+        ranksep=1.15
+    ];
+
+    node [
+        shape=box,
+        style="rounded,filled",
+        fontname="Arial",
+        fontsize=13,
+        color="#334155",
+        fillcolor="#f8fafc",
+        fontcolor="#0f172a",
+        margin="0.18,0.12"
+    ];
+
+    edge [
+        fontname="Arial",
+        fontsize=11,
+        color="#475569",
+        fontcolor="#334155",
+        arrowsize=0.8
+    ];
+
+    title [
+        label="Tworzenie korpusu referencyjnego",
+        shape=plain,
+        fontsize=22,
+        fontname="Arial",
+        fontcolor="#000000"
+    ];
+
+    upload [
+        label="1. Badacz dodaje tekst źródłowy\nplik DOCX, PDF albo TXT\n+ tytuł i autor",
+        fillcolor="#e0f2fe"
+    ];
+
+    read_text [
+        label="2. Aplikacja odczytuje treść\nz przesłanego pliku",
+        fillcolor="#f8fafc"
+    ];
+
+    split_text [
+        label="3. Tekst jest dzielony\nna krótkie fragmenty",
+        fillcolor="#f8fafc"
+    ];
+
+    embeddings [
+        label="4. Dla każdego fragmentu\npowstaje reprezentacja znaczeniowa\n(embedding)",
+        fillcolor="#ede9fe"
+    ];
+
+    save_corpus [
+        label="5. Korpus zostaje zapisany\ntekst, metadane i fragmenty\ndo późniejszych porównań",
+        fillcolor="#dcfce7"
+    ];
+
+    manage [
+        label="6. Badacz może później\nprzeglądać, poprawiać metadane\nalbo usuwać teksty z korpusu",
+        fillcolor="#fef3c7"
+    ];
+
+    title -> upload [style=invis, minlen=1];
+    upload -> read_text;
+    read_text -> split_text;
+    split_text -> embeddings;
+    embeddings -> save_corpus;
+    save_corpus -> manage;
+}
