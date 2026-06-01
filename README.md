@@ -16,3 +16,17 @@ Struktura folderów:
     - static
     - templates
     - uploads
+    
+## Zrzuty ekranu
+
+Korpus tesktów referencyjnych:
+![screeenshot](doc/screenshot_01.png)
+
+Lista analiz:
+![screeenshot](doc/screenshot_02.png)
+
+Wynik analizy:
+![screeenshot](doc/screenshot_03.png)
+
+Parametry aplikacji:
+![screeenshot](doc/screenshot_04.png)
